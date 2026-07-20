@@ -1,0 +1,2 @@
+case,seed_files_found,raw_rows,unique_configurations,feasible,operationally_feasible,pareto_feasible,pareto_operationally_feasible
+real_system_anonymized,3,18666,18624,18624,8242,60,59

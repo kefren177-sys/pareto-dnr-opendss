@@ -1,0 +1,7 @@
+case,element_id,element_type,associated_branch,failure_rate_lambda_per_year,repair_time_h,restoration_time_h,users_affected,load_affected_kW,source_file,notes,data_status
+five_node,1,branch,1,0.75,6.0,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,nan,SOURCE
+five_node,2,branch,2,1.5,6.0,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,nan,SOURCE
+five_node,3,branch,3,1.9,6.0,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,nan,SOURCE
+five_node,4,branch,4,0.95,6.0,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,nan,SOURCE
+five_node,5,branch,5,0.75,6.0,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,nan,SOURCE
+five_node,6,branch,6,0.75,6.0,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,nan,SOURCE

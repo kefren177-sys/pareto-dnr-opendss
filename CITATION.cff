@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: "Pareto-Based Multi-Objective Distribution Network Reconfiguration for Active Power Loss Reduction and Reliability Improvement Using OpenDSS"
+message: "If you use this repository, please cite the companion article and this archived repository."
+type: software
+authors:
+  - family-names: "Efren"
+    given-names: "Edgar"
+    affiliation: "To be updated"
+repository-code: "https://github.com/TO_BE_UPDATED/pareto-dnr-opendss"
+doi: "TO_BE_UPDATED"
+date-released: "2026-07-20"
+version: "0.1.0"
+license: "MIT"
+keywords:
+  - distribution network reconfiguration
+  - OpenDSS
+  - multi-objective optimization
+  - Pareto front
+  - SAIDI
+  - reliability

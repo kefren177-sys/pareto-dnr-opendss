@@ -1,0 +1,4 @@
+case,voltage_level_kV,n_nodes,n_lines,n_switches_candidate,n_open_required,n_load_points,n_users,purpose
+five_node,13.2,5,6,6,2,4,553,controlled_validation
+ieee33,12.66,33,37,37,5,32,5760,literature_comparison
+real_system_anonymized,13.2,110,131,131,22,108,43069,real_system_application

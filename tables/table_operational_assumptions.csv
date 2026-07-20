@@ -1,0 +1,4 @@
+case,voltage_min_pu,voltage_max_pu,thermal_limits_available,thermal_limit_source,loading_limits_policy,convergence_required,radiality_required,connectivity_required,loads_served_required,notes
+five_node,0.9,1.05,False,NOT_AVAILABLE,loading_limits_not_available,True,True,True,True,No traceable ampacity/rating source was found; loading feasibility is reported but does not invent thermal limits.
+ieee33,0.9,1.05,False,NOT_AVAILABLE,loading_limits_not_available,True,True,True,True,No traceable ampacity/rating source was found; loading feasibility is reported but does not invent thermal limits.
+real_system_anonymized,0.9,1.05,False,NOT_AVAILABLE,loading_limits_not_available,True,True,True,True,No traceable ampacity/rating source was found; loading feasibility is reported but does not invent thermal limits.

@@ -1,0 +1,4 @@
+case,n_total_evaluated,n_feasible,n_operationally_feasible,n_non_dominated,n_disconnected,n_non_radial,n_not_converged,runtime_s,power_flow_evaluations
+five_node,15,8,0,1,7,7,0,0.2654659999971045,8
+ieee33,7083,7083,3975,5,0,0,0,593.949133,7083
+real_system_anonymized,18624,18624,8242,60,0,0,0,777.907765,18624

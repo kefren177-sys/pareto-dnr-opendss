@@ -1,0 +1,7 @@
+case,switch_id,branch_id,from_bus,to_bus,base_status,is_tie_switch,is_sectionalizing_switch,included_in_optimization,source_file,data_status
+five_node,1,1,1,2,closed,False,True,True,data/five_node/public_sanitized_source,SOURCE
+five_node,2,2,2,3,closed,False,True,True,data/five_node/public_sanitized_source,SOURCE
+five_node,3,3,3,4,closed,False,True,True,data/five_node/public_sanitized_source,SOURCE
+five_node,4,4,2,5,closed,False,True,True,data/five_node/public_sanitized_source,SOURCE
+five_node,5,5,2,4,open,True,False,True,data/five_node/public_sanitized_source,SOURCE
+five_node,6,6,4,5,open,True,False,True,data/five_node/public_sanitized_source,SOURCE

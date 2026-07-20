@@ -1,0 +1,5 @@
+case,load_id,bus,phase,kV,P_kW,Q_kVAr,connected_users,load_type,feeder,source_file,data_status
+five_node,Load2,2,3,13.2,855.0,414.0,154,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,SOURCE
+five_node,Load3,3,3,13.2,1488.0,922.0,133,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,SOURCE
+five_node,Load4,4,3,13.2,1395.0,676.0,196,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,SOURCE
+five_node,Load5,5,3,13.2,1464.0,1098.0,70,NOT_AVAILABLE,NOT_AVAILABLE,data/five_node/public_sanitized_source,SOURCE

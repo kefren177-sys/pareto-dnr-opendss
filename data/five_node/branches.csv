@@ -1,0 +1,7 @@
+case,branch_id,from_bus,to_bus,length,length_unit,R_ohm,X_ohm,R1,X1,phases,enabled,is_switch,is_candidate_switch,is_normally_open,thermal_limit_A,source_file,data_status
+five_node,1,1,2,2.5,km,0.7202500000000001,1.00525,0.2881,0.4021,3,True,True,True,False,NOT_AVAILABLE,data/five_node/public_sanitized_source,CALCULATED
+five_node,2,2,3,9.9,km,2.85219,3.98079,0.2881,0.4021,3,True,True,True,False,NOT_AVAILABLE,data/five_node/public_sanitized_source,CALCULATED
+five_node,3,3,4,12.5,km,3.6012500000000003,5.02625,0.2881,0.4021,3,True,True,True,False,NOT_AVAILABLE,data/five_node/public_sanitized_source,CALCULATED
+five_node,4,2,5,14.896,km,4.291537600000001,5.989681600000001,0.2881,0.4021,3,True,True,True,False,NOT_AVAILABLE,data/five_node/public_sanitized_source,CALCULATED
+five_node,5,2,4,6.301,km,1.8153181000000005,2.5336321,0.2881,0.4021,3,True,True,True,True,NOT_AVAILABLE,data/five_node/public_sanitized_source,CALCULATED
+five_node,6,4,5,6.83,km,1.967723,2.746343,0.2881,0.4021,3,True,True,True,True,NOT_AVAILABLE,data/five_node/public_sanitized_source,CALCULATED

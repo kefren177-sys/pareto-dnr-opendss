@@ -1,0 +1,20 @@
+objectives:
+- active_power_losses_kw
+- saidi_h_customer_year
+complementary_metrics:
+- saifi_int_customer_year
+- ens_mwh_year
+- vmin_pu
+- vmax_pu
+voltage_limits_pu:
+  min: 0.9
+  max: 1.05
+thermal_limits: reported_only_when_traceable_data_are_available
+evaluator: OpenDSS-based AC power flow evaluation
+case: five_node
+open_switch_count: 2
+base_open_switches:
+- 5
+- 6
+model_file: opendss_models/five_node/five_node.dss
+role: algorithmic validation

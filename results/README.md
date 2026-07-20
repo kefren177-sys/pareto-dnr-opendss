@@ -1,0 +1,11 @@
+# Results
+
+This directory contains consolidated results used for article traceability.
+
+- `representative_solutions.csv`: base, minimum-loss, minimum-SAIDI, and compromise configurations.
+- `all_combined.csv`: unique evaluated configurations from final runs, where available. This file is included for IEEE 33. It is intentionally excluded for the anonymized real system to avoid publishing more configuration-level information than needed.
+- `summarized_results.csv`: public replacement for the full evaluated-solution cloud in the anonymized real-system case.
+- `pareto_feasible.csv`: Pareto front filtered by `feasible=True`.
+- `pareto_operationally_feasible.csv`: Pareto front filtered by `operationally_feasible=True`.
+
+The five-node case includes exhaustive enumeration outputs for validation. IEEE 33 includes consolidated final-run outputs. The anonymized real system includes representative solutions, Pareto fronts, and run summaries only.

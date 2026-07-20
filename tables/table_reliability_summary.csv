@@ -1,0 +1,4 @@
+case,n_elements_with_lambda,lambda_min,lambda_mean,lambda_max,repair_time_min_h,repair_time_mean_h,repair_time_max_h,restoration_time_min_h,restoration_time_mean_h,restoration_time_max_h,notes
+five_node,6,0.75,1.1,1.9,6.0,6.0,6.0,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,restoration_time_h NOT_AVAILABLE; repair_time_h used in reliability calculation.
+ieee33,37,1.4634,1.4634,1.4634,0.3659,0.3659,0.3659,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,restoration_time_h NOT_AVAILABLE; repair_time_h used in reliability calculation.
+real_system_anonymized,131,2.0,2.687022900763359,8.0,0.3659,0.3658999999999999,0.3659,NOT_AVAILABLE,NOT_AVAILABLE,NOT_AVAILABLE,restoration_time_h NOT_AVAILABLE; repair_time_h used in reliability calculation. Operator lambda source: Excel column P in sanitized_reliability_sheet.

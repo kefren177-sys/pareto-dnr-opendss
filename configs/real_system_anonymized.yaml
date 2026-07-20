@@ -1,0 +1,49 @@
+objectives:
+- active_power_losses_kw
+- saidi_h_customer_year
+complementary_metrics:
+- saifi_int_customer_year
+- ens_mwh_year
+- vmin_pu
+- vmax_pu
+voltage_limits_pu:
+  min: 0.9
+  max: 1.05
+thermal_limits: reported_only_when_traceable_data_are_available
+evaluator: OpenDSS-based AC power flow evaluation
+case: real_system_anonymized
+open_switch_count: 22
+base_open_switches:
+- 110
+- 111
+- 112
+- 113
+- 114
+- 115
+- 116
+- 117
+- 118
+- 119
+- 120
+- 121
+- 122
+- 123
+- 124
+- 125
+- 126
+- 127
+- 128
+- 129
+- 130
+- 131
+model_file: opendss_models/real_system_anonymized/real_system_anonymized.dss
+algorithm:
+  type: NSGA-II-type strategy
+  population: 80
+  generations: 80
+  seeds:
+  - 1234
+  - 2026
+  - 31415
+confidentiality: Original operator files, names, locations, and internal identifiers
+  are excluded.
