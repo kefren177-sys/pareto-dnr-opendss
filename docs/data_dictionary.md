@@ -12,7 +12,7 @@
 - `SAIFI_int_user_year`, `saifi_int_user_year`: SAIFI in interruptions/customer-year.
 - `ENS_MWh_year`, `ens_mwh_year`: expected energy not supplied in MWh/year.
 - `feasible`: radial, connected, and OpenDSS-converged solution.
-- `operationally_feasible`: feasible solution satisfying voltage limits and load-supply checks; thermal limits are not asserted unless traceable data exist.
+- `operationally_feasible`: historical field name retained for compatibility. In the released datasets, it identifies configurations that are feasible and voltage-feasible under the modeled constraints, with no failed load-supply check and no reported thermal violation. It does not certify ampacity compliance, protection coordination, source-capacity sufficiency, or physical switching-sequence feasibility.
 - `infeasibility_reasons`: semicolon-separated diagnostic flags.
 
 ## Input Data Columns
@@ -25,7 +25,7 @@
 ## Repository Tables
 
 - `tables/table_case_summary.csv`: case-level network size, required open switches, load points, users, and study purpose.
-- `tables/table_pareto_summary.csv`: total evaluated solutions, feasible counts, operationally feasible counts, non-dominated counts, runtime, and power-flow evaluation counts.
+- `tables/table_pareto_summary.csv`: total evaluated solutions, feasible counts, counts for the historical `operationally_feasible` field, non-dominated counts, runtime, and power-flow evaluation counts.
 - `tables/table_compromise_vs_minloss.csv`: comparison between minimum-loss and compromise solutions.
 - `tables/table_benchmark_bpso_opendss.csv`: manuscript benchmark support values.
 - `tables/table_computational_summary_by_seed.csv`: final-run summary by case and random seed.
@@ -46,4 +46,4 @@
 
 ## Real-System Publication Policy
 
-For `real_system_anonymized`, `all_combined.csv` is intentionally not published in this clean repository. The public result files are `representative_solutions.csv`, `summarized_results.csv`, `pareto_feasible.csv`, `pareto_operationally_feasible.csv`, `best_by_losses.csv`, `best_by_saidi.csv`, `best_compromise.csv`, and `run_summary.csv`.
+For `real_system_anonymized`, `all_combined.csv` is intentionally not published in this clean repository. The public result files are `representative_solutions.csv`, `summarized_results.csv`, `pareto_feasible.csv`, `pareto_operationally_feasible.csv`, `best_by_losses.csv`, `best_by_saidi.csv`, `best_compromise.csv`, and `run_summary.csv`. The filename `pareto_operationally_feasible.csv` is historical and should be interpreted according to the limited field definition above.

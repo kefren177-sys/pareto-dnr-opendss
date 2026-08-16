@@ -198,11 +198,11 @@ def experimental_parameters(summary: pd.DataFrame) -> pd.DataFrame:
                 "semillas": ", ".join(str(seed) for seed in meta["seeds"]),
                 "objetivo_1": "Perdidas tecnicas [kW]",
                 "objetivo_2": "SAIDI [h/usuario-anio]",
-                "metricas_complementarias": "SAIFI, ENS, Vmin, Vmax, feasible, operationally_feasible",
+                "metricas_complementarias": "SAIFI, ENS, Vmin, Vmax, feasible, voltage-feasible flag",
                 "limite_inferior_tension_pu": case.operation_limits.get("v_min_limit", 0.90),
                 "limite_superior_tension_pu": case.operation_limits.get("v_max_limit", 1.05),
                 "criterio_feasible": "radialidad/conectividad + convergencia OpenDSS",
-                "criterio_operationally_feasible": "feasible + tension dentro de limites + sin sobrecarga conocida + cargas servidas",
+                "criterio_operationally_feasible": "historical field: feasible + tension dentro de limites + cargas servidas; no certifica validacion operativa completa",
                 "numero_semillas": len(meta["seeds"]),
                 "observacion_limites_termicos": "loading_limits_not_available se reporta como advertencia porque no hay ratings trazables.",
             }
@@ -717,13 +717,13 @@ def plot_feasibility_distribution(all_data: dict[str, dict[str, pd.DataFrame]]) 
     for case_name, data in all_data.items():
         df = data["all"]
         reasons = df["infeasibility_reasons"].fillna("").astype(str)
-        rows.append({"case": case_name, "Total evaluated": len(df), "Feasible": int(df["feasible"].sum()), "Operationally feasible": int(df["operationally_feasible"].sum()), "Voltage below limit": int(reasons.str.contains("voltage_below_limit", regex=False).sum()), "Voltage above limit": int(reasons.str.contains("voltage_above_limit", regex=False).sum())})
+        rows.append({"case": case_name, "Total evaluated": len(df), "Feasible": int(df["feasible"].sum()), "Voltage-feasible under modeled constraints": int(df["operationally_feasible"].sum()), "Voltage below limit": int(reasons.str.contains("voltage_below_limit", regex=False).sum()), "Voltage above limit": int(reasons.str.contains("voltage_above_limit", regex=False).sum())})
     dist = pd.DataFrame(rows)
     img = Image.new("RGB", (1300, 820), "white")
     draw = ImageDraw.Draw(img)
-    _draw_text(draw, (650, 24), "Distribution of feasible and operationally feasible solutions", 28, anchor="ma")
+    _draw_text(draw, (650, 24), "Distribution of feasible and voltage-feasible solutions", 28, anchor="ma")
     colors = ["#111827", "#2563eb", "#15803d", "#dc2626", "#f59e0b"]
-    cols = ["Total evaluated", "Feasible", "Operationally feasible", "Voltage below limit", "Voltage above limit"]
+    cols = ["Total evaluated", "Feasible", "Voltage-feasible under modeled constraints", "Voltage below limit", "Voltage above limit"]
     maxv = float(dist[cols].max().max()) * 1.1
     for cidx, row in dist.iterrows():
         x0 = 130 + cidx * 560
@@ -739,7 +739,7 @@ def plot_feasibility_distribution(all_data: dict[str, dict[str, pd.DataFrame]]) 
             _draw_text(draw, (bx + 21, by - 18), f"{int(val)}", 13, anchor="ma")
             _draw_text(draw, (bx + 21, y0 + 10), str(i + 1), 14, anchor="ma")
     _legend(draw, list(zip(cols, colors)), 1020, 90)
-    svg_parts = ['<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="560" viewBox="0 0 1050 560">', '<rect width="100%" height="100%" fill="white"/>', '<text x="525" y="28" text-anchor="middle" font-family="Arial" font-size="18">Distribution of feasible and operationally feasible solutions</text>']
+    svg_parts = ['<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="560" viewBox="0 0 1050 560">', '<rect width="100%" height="100%" fill="white"/>', '<text x="525" y="28" text-anchor="middle" font-family="Arial" font-size="18">Distribution of feasible and voltage-feasible solutions</text>']
     for cidx, row in dist.iterrows():
         x0 = 80 + cidx * 405
         y0, h = 480, 350
@@ -805,7 +805,7 @@ def main() -> None:
         "- Menor perdida: minimo de `losses_kw` entre soluciones feasible combinadas.",
         "- Menor SAIDI: minimo de `saidi_h_user_year` entre soluciones feasible combinadas.",
         "- Compromiso: menor distancia normalizada al punto ideal en el Pareto feasible combinado.",
-        "- Top Pareto: se uso `pareto_operationally_feasible.csv`; si estuviera vacio se usaria `pareto_feasible.csv`.",
+        "- Top Pareto: se uso el archivo historico `pareto_operationally_feasible.csv`; su nombre se conserva por compatibilidad y debe interpretarse como voltage-feasible under modeled constraints.",
         "",
         "## Perfiles de tension",
         "Los perfiles por nodo no estaban en los CSV combinados. Se evaluaron unicamente las configuraciones puntuales base, menor perdida, menor SAIDI y compromiso, sin optimizacion.",

@@ -37,9 +37,9 @@ The public configuration documents `repair_time_hours = 0.3659` and `failure_rat
 ## Feasibility Classes
 
 - `feasible`: connected, radial, and OpenDSS-converged.
-- `operationally_feasible`: feasible, voltage-feasible under 0.90 to 1.05 p.u., no failed load-supply check, and no reported thermal violation.
+- `operationally_feasible`: historical output-field name retained for compatibility. In the released datasets it means `feasible`, voltage-feasible under 0.90 to 1.05 p.u., no failed load-supply check, and no reported thermal violation.
 
-Thermal limits are reported only when traceable ratings are available. The public real-system package does not include branch-level ampacity/rating data, so thermal feasibility is not asserted.
+This flag should not be interpreted as a complete operational validation. Thermal limits are reported only when traceable ratings are available. The public real-system package does not include branch-level ampacity/rating data, so thermal feasibility is not asserted. Protection coordination, full source-capacity validation, and physical switching sequences are not verified by this flag.
 
 ## Representative Solutions
 

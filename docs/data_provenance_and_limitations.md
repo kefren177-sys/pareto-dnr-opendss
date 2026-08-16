@@ -5,7 +5,7 @@
 - Type: synthetic validation case.
 - Data source in repository: built-in case definition in `src/dnr/cases.py` and `configs/cases.yml`.
 - Purpose: algorithmic/control validation.
-- Operational note: the controlled optimum has `Vmin < 0.90 p.u.`, so it is not treated as operationally admissible under the manuscript voltage criterion.
+- Voltage-feasibility note: the controlled optimum has `Vmin < 0.90 p.u.`, so it is not voltage-feasible under the manuscript voltage criterion.
 
 ## IEEE 33-Node System
 
@@ -62,6 +62,8 @@ The public repository does not provide traceable branch-level thermal ratings or
 - switching sequences are not validated;
 - source-capacity checks beyond the OpenDSS power-flow model are not claimed;
 - full field-operability beyond modeled topology and voltage constraints is not claimed.
+
+The historical result field `operationally_feasible` and files named `pareto_operationally_feasible.csv` are retained for compatibility with the analysis pipeline. For the released real-system data, they should be interpreted as voltage-feasible under the modeled constraints, with no failed topology/load-supply checks and no available thermal-rating violation. They should not be interpreted as proof of complete operational readiness.
 
 ## Reproducibility Boundary
 

@@ -142,7 +142,7 @@ It does not claim full public rerun capability for the restricted real-system op
 
 ## Data Provenance and Limitations
 
-See `docs/data_provenance_and_limitations.md`. Thermal ratings are not published as traceable branch-level data, so thermal feasibility is not claimed. Protection coordination, switching sequences, source-capacity validation, and field-operability beyond the modeled topology/voltage constraints are outside the public dataset.
+See `docs/data_provenance_and_limitations.md`. The historical CSV field `operationally_feasible` should be read as a modeled-feasibility flag dominated by voltage compliance under the released constraints, not as a complete field-operability validation. Thermal ratings are not published as traceable branch-level data, so thermal feasibility is not claimed. Protection coordination, switching sequences, full source-capacity validation, ampacity verification, and field-operability beyond the modeled topology/voltage constraints are outside the public dataset.
 
 ## Citation
 

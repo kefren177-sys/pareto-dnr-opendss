@@ -332,7 +332,7 @@ def point_summary(case_label: str, selected: dict[str, pd.Series]) -> list[str]:
         lines.append(
             f"- {labels[key]}: ({float(row['losses_kw']):.6f} kW, "
             f"{float(row['saidi']):.6f} h/customer-year), "
-            f"operationally_feasible={row.get('operationally_feasible')}, "
+            f"voltage_feasible_modeled_constraints={row.get('operationally_feasible')}, "
             f"open switches `{row.get('open_switches', '')}`."
         )
     return lines
@@ -435,10 +435,10 @@ def main() -> None:
                 "- Input files:",
                 *[f"  - `{path}`" for path in data["input_files"]],
                 f"- Feasible solutions: {len(feasible)}.",
-                f"- Operationally feasible solutions: {len(op)}.",
+                f"- Voltage-feasible under modeled constraints: {len(op)}.",
                 f"- Feasible Pareto points: {len(p_feas)}.",
-                f"- Operational Pareto points: {len(p_op)}.",
-                f"- Minimum SAIDI operationally feasible: {min_saidi_op}.",
+                f"- Voltage-feasible Pareto points under modeled constraints: {len(p_op)}.",
+                f"- Minimum SAIDI voltage-feasible under modeled constraints: {min_saidi_op}.",
                 "- Selected coordinates:",
                 *point_summary(case, selected),
                 "- Warnings:",
@@ -452,8 +452,8 @@ def main() -> None:
             "## Global Warnings",
             "- No optimization runs were executed.",
             "- No literature values were used or invented.",
-            "- Pareto fronts were recalculated from the consolidated evaluated-solution CSV files to ensure consistent feasible and operational filters.",
-            "- The minimum-SAIDI solution is plotted even when it is not operationally feasible.",
+            "- Pareto fronts were recalculated from the consolidated evaluated-solution CSV files to ensure consistent feasible and modeled voltage-feasibility filters.",
+            "- The minimum-SAIDI solution is plotted even when it is not voltage-feasible under the modeled constraints.",
             "",
             "## Generated Files",
             *[f"- `{path}`" for path in generated],
