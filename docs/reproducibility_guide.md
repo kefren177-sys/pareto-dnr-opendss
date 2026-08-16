@@ -1,12 +1,10 @@
 # Reproducibility Guide
 
-This repository supports three levels of traceability. It should not be read as a promise that every final optimization run can be repeated on every machine without the original working environment.
+This repository distinguishes three reproducibility levels.
 
-## 1. Verification from Consolidated CSV Files
+## Level 1. Verification from Consolidated CSV Files
 
-This is the primary supported path for reviewers. It does not require OpenDSS and verifies the reported representative solutions from released CSV files.
-
-Run:
+This path does not require OpenDSS. It verifies the manuscript values from released consolidated files:
 
 ```bash
 python src/run_case.py five_node
@@ -14,41 +12,95 @@ python src/run_case.py ieee33
 python src/run_case.py real_system_anonymized
 ```
 
-These commands read the consolidated CSV files and print representative base, minimum-loss, minimum-SAIDI, and compromise solutions.
+The script reads `results/<case>/representative_solutions.csv`. It is a verification utility, not the optimization driver.
 
-## 2. Partial Reproduction from Released Data
+## Level 2. Public Rerun of Released Optimization Cases
 
-The released CSV files allow independent verification of:
+The released five-node and IEEE 33-node cases can be rerun with the actual evolutionary search:
 
-- representative configurations;
-- active power losses, voltage limits, SAIDI, SAIFI, and ENS reported in the article;
-- feasible and operationally feasible Pareto fronts;
-- tables and figures derived from consolidated outputs.
+```bash
+python -m pip install -e .
+dnr run ieee33 --open 33,34,35,36,37
+dnr optimize ieee33 --method evolutionary --population 100 --generations 100 --reliability-objective saidi --seed 1234 --output-dir results/example_runs/ieee33_seed_1234
+```
 
-The anonymized real-system release excludes the full evaluated-solution cloud. For that case, public verification uses `representative_solutions.csv`, `summarized_results.csv`, and the Pareto-front CSV files.
+The optimization command executes population generation, graph-aware radial mutation, OpenDSS evaluation, reliability calculation, evaluation caching, non-dominated sorting, crowding distance, and elitist environmental selection.
 
-## 3. Inspect Pareto Fronts
+For a short smoke run:
 
-Use:
+```bash
+dnr optimize ieee33 --method evolutionary --population 10 --generations 5 --reliability-objective saidi --seed 1234 --output-dir results/example_runs/ieee33_smoke
+```
 
-- `results/ieee33/pareto_feasible.csv`
-- `results/ieee33/pareto_operationally_feasible.csv`
-- `results/real_system_anonymized/pareto_feasible.csv`
-- `results/real_system_anonymized/pareto_operationally_feasible.csv`
+## Level 3. IEEE 33-Node Statistical Campaign
 
-The fronts minimize active power losses and SAIDI.
+The Phase 4 campaign used:
 
-## 4. Complete Reproduction with OpenDSS
+- case: `ieee33`
+- method: `evolutionary`
+- population: `100`
+- generations: `100`
+- reliability objective: `saidi`
+- seeds:
 
-OpenDSS models are under `opendss_models/`. Complete reproduction of electrical evaluations requires:
+```text
+1234, 2026, 31415, 27182, 4242,
+8675, 13579, 24680, 11235, 22346,
+33457, 44568, 55679, 66780, 77891,
+88902, 99013, 10124, 21235, 32346
+```
 
-- a Python environment compatible with the packages in `requirements.txt`;
-- `opendssdirect.py`;
-- a working OpenDSS backend for the operating system;
-- the released anonymized OpenDSS models.
+Run each seed into a separate directory:
 
-Use `src/evaluate_opendss.py` as a starting helper for point evaluations. Some environments, especially non-Windows systems, may not support OpenDSS directly. In that case, use the consolidated CSV files for traceability.
+```bash
+dnr optimize ieee33 --method evolutionary --population 100 --generations 100 --reliability-objective saidi --seed 1234 --output-dir results/phase4_runs/ieee33/seed_1234
+```
 
-## 5. Real-System Confidentiality
+Each run should produce:
 
-The real-system case is intentionally anonymized. Public verification focuses on consolidated electrical and reliability outputs rather than original operator files.
+- `all.csv`
+- `pareto.csv`
+- `summary.csv`
+- `summary.json`
+- `log.txt`
+- `generation_history.csv`
+- `pareto_history.csv`
+
+Then run:
+
+```bash
+python scripts/phase4_postprocess.py results/phase4_runs/ieee33 --output-dir results/phase4_runs/ieee33/phase4
+```
+
+This regenerates:
+
+- `phase4_run_metrics.csv`
+- `phase4_statistical_summary.csv`
+- `phase4_empirical_reference_front.csv`
+- `phase4_convergence.csv`
+- `phase4_protocol.json`
+
+## Real-System Public Reproduction Boundary
+
+The real distribution-system case is released as an anonymized traceability package. The public files include structured Annex C data, anonymized topology, representative solutions, and Pareto fronts. The original operator workbook used for private reliability data ingestion is not published.
+
+Therefore:
+
+- public users can verify the reported real-system results from CSV files;
+- public users can inspect the anonymized topology and structural inputs;
+- public users cannot fully rerun the private real-system optimization from only the public repository.
+
+This limitation is intentional and is documented in `docs/confidentiality_note.md` and `docs/data_provenance_and_limitations.md`.
+
+## Regenerating Figures and Tables
+
+```bash
+python scripts/generate_article_outputs.py
+python scripts/generate_pareto_zoom_figures.py
+```
+
+The scripts operate on released consolidated results and do not rerun the optimizer.
+
+## Expected OpenDSS Behavior
+
+The evaluator compiles a generated DSS file, opens the requested line/switch elements, solves an AC power flow, and extracts active power losses and voltage magnitudes. OpenDSS is not used as an optimizer.

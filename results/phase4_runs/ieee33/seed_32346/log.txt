@@ -1,0 +1,25 @@
+DNR optimization run log
+command: dnr optimize ieee33 --method evolutionary --population 100 --generations 100 --reliability-objective saidi --seed 32346 --output-dir results/phase4_runs/ieee33/seed_32346
+started_at: 2026-08-16T12:03:56
+finished_at: 2026-08-16T12:04:26
+case: ieee33
+method: evolutionary
+population: 100
+generations: 100
+seed: 32346
+reliability_objective: saidi
+v_min_limit: 0.9
+v_max_limit: 1.05
+elapsed_seconds: 30.02618
+total_candidate_evaluations: 13233
+unique_evaluations: 3333
+cache_hits: 9900
+feasible_count: 3333
+operationally_feasible_count: 2164
+pareto_size: 5
+all_csv: results/phase4_runs/ieee33/seed_32346/all.csv
+pareto_csv: results/phase4_runs/ieee33/seed_32346/pareto.csv
+warnings:
+- loading_limits_not_available
+- voltage_below_limit
+errors: none

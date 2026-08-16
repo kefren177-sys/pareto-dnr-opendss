@@ -6,9 +6,9 @@ authors:
   - family-names: "Efren"
     given-names: "Edgar"
     affiliation: "To be updated"
-repository-code: "https://github.com/TO_BE_UPDATED/pareto-dnr-opendss"
+repository-code: "https://github.com/kefren177-sys/pareto-dnr-opendss"
 doi: "TO_BE_UPDATED"
-date-released: "2026-07-20"
+date-released: "2026-08-16"
 version: "0.1.0"
 license: "MIT"
 keywords:

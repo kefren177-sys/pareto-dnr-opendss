@@ -1,71 +1,74 @@
 # Final Repository Audit
 
-Audit date: 2026-07-20
+Audit date: 2026-08-16
 
 Repository audited: `clean_github_repository`
 
 ## Scope
 
-This audit reviewed the clean companion repository prepared for the manuscript provisionally titled "Pareto-Based Multi-Objective Distribution Network Reconfiguration for Active Power Loss Reduction and Reliability Improvement Using OpenDSS".
+This audit reviewed the companion repository for the manuscript "Pareto-Based Multi-Objective Distribution Network Reconfiguration for Active Power Loss Reduction and Reliability Improvement Using OpenDSS".
 
-The audit checked documentation claims, reproducibility wording, consistency of manuscript values, confidentiality of the anonymized real-system case, relative paths in scripts, CSV documentation, and traceability of the main reported results.
+The audit checked whether the repository contains the real optimization implementation, reproducibility instructions, anonymized real-system documentation, Phase 4 statistical artifacts, table/figure regeneration scripts, environment documentation, and confidentiality protections.
 
 ## Audit Results
 
 | item | status | finding |
 |---|---|---|
-| README reproducibility claims | PASS | `README.md` now describes the repository as a verification and partial-reproduction package, with complete reruns conditioned on a compatible OpenDSS/Python environment. |
-| Reproducibility guide | PASS | `docs/reproducibility_guide.md` now separates verification from consolidated CSV files, partial reproduction from released data, and complete reproduction with OpenDSS. |
-| Consistency audit table | PASS | `docs/consistency_audit.md` includes an explicit table with `case`, `metric`, `manuscript_value`, `repository_value`, `absolute_difference`, `tolerance`, and `status`. |
-| Absolute paths and sensitive strings | PASS | No local absolute paths, original project folder names, real municipality/substation names, geolocation fields, or original operator source names were found in CSV, YAML, DSS, MD, PY, TXT, CFF, or JSON files. |
-| Real-system anonymization | PASS | Real-system files use `real_system_anonymized`, numeric buses/branches/switches, and sanitized source labels. Original names, geolocation data, maps, source spreadsheets, and geographic/commercial identifiers are excluded. |
-| Real-system result exposure | PASS WITH LIMITATION | `results/real_system_anonymized/all_combined.csv` was removed from the clean repository. The public package keeps `representative_solutions.csv`, `summarized_results.csv`, Pareto fronts, best-solution files, and run summaries. |
-| LICENSE and CITATION | PASS WITH LIMITATION | `LICENSE` is MIT and suitable for code. `CITATION.cff` is coherent as provisional metadata, but DOI, final repository URL, affiliation, and publication metadata remain to be updated. |
-| Relative script paths | PASS | Scripts under `src/` use paths relative to the repository root via `Path(__file__).resolve().parents[1]`; no local machine paths were found. |
-| CSV headers and dictionary | PASS | CSV files have explicit headers. `docs/data_dictionary.md` documents common result columns, input data files, repository-level tables, and the real-system publication policy. |
-| Main result traceability | PASS | The main manuscript values for `five_node`, `ieee33`, and `real_system_anonymized` are traceable through `representative_solutions.csv`, Pareto files, tables, and the consistency audit. |
-
-## Main Results Traced
-
-| case | solution types traced | key metrics traced |
-|---|---|---|
-| five_node | base, min_loss, min_SAIDI, compromise | open switches, active power losses, Vmin, Vmax, SAIDI, SAIFI, ENS, feasible, operationally feasible |
-| ieee33 | base, min_loss, min_SAIDI, compromise | open switches, active power losses, Vmin, Vmax, SAIDI, SAIFI, ENS, feasible, operationally feasible |
-| real_system_anonymized | base, min_loss, min_SAIDI, compromise | open switches, active power losses, Vmin, Vmax, SAIDI, SAIFI, ENS, feasible, operationally feasible |
+| Optimization procedure | PASS | The repository now includes the `src/dnr/` implementation used for the evolutionary search, OpenDSS evaluation, reliability calculation, Pareto ranking, caching, and output writing. |
+| R3-C9 reproducibility concern | PASS WITH LIMITATION | IEEE33 and five-node can be rerun publicly. The real-system optimization remains CSV-verifiable only because restricted operator reliability inputs are not published. |
+| README reproducibility claims | PASS | `README.md` distinguishes full public reruns for five-node/IEEE33 from real-system verification under confidentiality constraints. |
+| Reproducibility guide | PASS | `docs/reproducibility_guide.md` separates CSV verification, public optimization reruns, Phase 4 campaign reruns, and real-system public boundaries. |
+| NSGA-II terminology | PASS | Documentation describes the method as an NSGA-II-type adapted evolutionary search, not canonical NSGA-II. |
+| Phase 4 artifacts | PASS | `results/phase4_runs/ieee33/` includes 20 seed directories plus postprocessed HV, IGD, spacing, convergence, and empirical-reference-front files. |
+| Generation/archive histories | PASS | Each Phase 4 seed directory includes `generation_history.csv` and `pareto_history.csv`. |
+| Consistency audit table | PASS | `docs/consistency_audit.md` includes explicit manuscript-vs-repository numerical checks. |
+| IEEE33 minimum-SAIDI correction | PASS | Public IEEE33 representative outputs select `7,10,14,27,36` with `142.095806 kW` and `SAIDI = 2.99902994334375`. |
+| Real-system anonymized topology | PASS | `docs/real_system/` includes the AutoCAD-derived PDF/SVG/PNG topology exports. |
+| Real-system Annex C data | PASS | `docs/real_system/real_system_annex_C_data.xlsx` is included with structural anonymized data. |
+| Absolute paths and sensitive strings | PASS | Search did not find local absolute paths or real geographic/operator identifiers in publishable text/data/code. Phase 4 run metadata paths were sanitized to relative paths. |
+| Real-system result exposure | PASS | Full evaluated-solution cloud for the real system remains excluded; representative and Pareto-level outputs are retained. |
+| LICENSE and CITATION | PASS WITH LIMITATION | MIT license and provisional `CITATION.cff` are present. DOI and final publication metadata remain to be updated after publication. |
+| Relative paths | PASS | Public configs use relative paths. The default public `configs/cases.yml` includes `five_node` and `ieee33`. |
+| Tests | PASS | `pytest` completed with `15 passed`. |
 
 ## Validation Commands Executed
 
 ```bash
+python -m pip install -e . --no-deps
+dnr run ieee33 --open 33,34,35,36,37
+dnr optimize ieee33 --method evolutionary --population 10 --generations 5 --reliability-objective saidi --seed 1234 --output-dir results/smoke_tests/ieee33_seed_1234 --overwrite
+python scripts/phase4_postprocess.py results/phase4_runs/ieee33 --output-dir results/smoke_tests/phase4_check
+python scripts/generate_phase4_convergence_figure.py results/phase4_runs/ieee33/phase4/phase4_convergence.csv --output-dir results/smoke_tests/fig_check_base
+python -m pytest -q
 python src/run_case.py five_node
 python src/run_case.py ieee33
 python src/run_case.py real_system_anonymized
 ```
 
-All three commands completed and printed the expected representative configurations.
+Temporary smoke-test outputs under `results/smoke_tests/` were removed before commit.
 
-## Changes Made During This Audit
+## Phase 4 Integrity Checks
 
-- Updated `README.md` to avoid promising full reproducibility without OpenDSS.
-- Updated `docs/reproducibility_guide.md` to distinguish CSV-based verification, partial reproduction, and complete OpenDSS-conditioned reproduction.
-- Updated `docs/consistency_audit.md` with the required explicit numerical comparison table.
-- Updated `docs/data_dictionary.md` with repository-level table documentation and the real-system publication policy.
-- Updated `docs/confidentiality_note.md` to state that the full evaluated-solution cloud for the real system is excluded.
-- Updated `results/README.md` to document why the real-system `all_combined.csv` is not published.
-- Removed `results/real_system_anonymized/all_combined.csv` from the clean repository.
-- Added `results/real_system_anonymized/summarized_results.csv` as a compact public replacement based on representative solutions.
-- Updated `docs/included_files_manifest.md` to reflect the replacement.
-- Added this file, `docs/final_repository_audit.md`.
+- Seed directories found: 20.
+- Generation histories: 100 generations for every seed.
+- Last `generation_history.csv` rows match `summary.csv` unique evaluations and cache hits for every seed.
+- Phase 4 run metrics rows: 20.
+- Benchmark `(7,9,14,32,37)` recovered as evaluated: 20/20.
+- Benchmark recovered in final Pareto: 20/20.
+- Benchmark selected as minimum loss: 20/20.
+- Maximum aggregated HV in `phase4_convergence.csv`: 1.0153445202052596, below the valid upper bound 1.1025.
+- First full-coverage evaluation count: 200.
 
 ## Remaining Risks
 
-- Public release of anonymized real-system technical data should still be approved by the data owner or corresponding institutional authority.
-- The MIT license is appropriate for software, but the authors should decide whether a separate data license or data-use note is needed for CSV/DSS assets.
-- `CITATION.cff` contains provisional fields that must be updated after DOI, repository URL, final author list, journal, and article metadata are available.
-- Complete reproduction of OpenDSS evaluations depends on a compatible OpenDSS backend and Python environment; the repository supports CSV-based verification when OpenDSS is unavailable.
-- The real-system anonymized network remains a technical representation of an actual system, even after removal of direct identifiers and full-solution cloud outputs.
+- Public release of anonymized real-system topology and Annex C data should remain subject to data-owner approval.
+- The public repository cannot fully rerun the private real-system optimization because restricted operator reliability files are not released.
+- Exact OpenDSS engine backend details beyond OpenDSSDirect.py version are unresolved in public metadata.
+- Complete hardware metadata are not available in logs.
+- The Matplotlib installation in the local `DNR` environment showed a low-level savefig failure during one figure-script smoke test; the same script succeeded with the base Python environment. Existing figures and CSV metrics are unaffected.
 
 ## Recommendation
 
-**ready for private GitHub**
+**ready for private GitHub and manuscript-review traceability**
 
-The repository is technically clean and internally consistent for a private GitHub repository shared with coauthors or reviewers under controlled access. For public GitHub, obtain explicit approval for releasing the anonymized real-system data and finalize citation/license metadata first.
+The repository is now suitable for a manuscript-review revision with public rerun support for IEEE33/five-node and transparent real-system confidentiality limitations. For fully public release, verify data-owner approval for `docs/real_system/` and decide whether a separate data-use license is required.

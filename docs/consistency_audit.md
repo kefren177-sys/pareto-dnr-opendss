@@ -15,9 +15,9 @@ No differences exceeded the defined manuscript rounding tolerances.
 | ieee33 | min_loss P_loss_kW | 137.34 | 137.340382 | 0.000382 | 0.01 | OK |
 | ieee33 | min_loss SAIDI_h_user_year | 3.355 | 3.355444 | 0.000444 | 0.001 | OK |
 | ieee33 | min_loss Vmin_pu | 0.937 | 0.937046 | 0.000046 | 0.001 | OK |
-| ieee33 | min_SAIDI P_loss_kW | 153.76 | 153.762067 | 0.002067 | 0.01 | OK |
+| ieee33 | min_SAIDI P_loss_kW | 142.10 | 142.095806 | 0.004194 | 0.01 | OK |
 | ieee33 | min_SAIDI SAIDI_h_user_year | 2.999 | 2.999030 | 0.000030 | 0.001 | OK |
-| ieee33 | min_SAIDI Vmin_pu | 0.928 | 0.927986 | 0.000014 | 0.001 | OK |
+| ieee33 | min_SAIDI Vmin_pu | 0.927 | 0.927233 | 0.000233 | 0.001 | OK |
 | ieee33 | compromise P_loss_kW | 137.63 | 137.634008 | 0.004008 | 0.01 | OK |
 | ieee33 | compromise SAIDI_h_user_year | 3.019 | 3.018552 | 0.000448 | 0.001 | OK |
 | ieee33 | compromise Vmin_pu | 0.932 | 0.932267 | 0.000267 | 0.001 | OK |
@@ -46,6 +46,7 @@ No differences exceeded the defined manuscript rounding tolerances.
 
 - The anonymized real system reports 43069 users because this is the denominator used by the current reliability calculation.
 - The original working article table previously included slack/source placeholder users; the clean repository reports users considered in reliability calculations.
+- IEEE33 `min_SAIDI` uses the corrected tie-break rule: among solutions within `1e-9 h/customer-year` of the minimum SAIDI, the representative solution is the one with lower active power losses. This selects `7,10,14,27,36` rather than the earlier `6,10,13,27,36`.
 - The complete evaluated-solution cloud for the anonymized real system is not included in the clean repository. Public traceability is provided through representative solutions, summarized results, and Pareto fronts.
 - OpenDSS is used as an electrical evaluator, not as an optimizer.
 - Thermal limits are not asserted because traceable ratings are unavailable.

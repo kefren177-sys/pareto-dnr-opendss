@@ -9,3 +9,5 @@ This directory contains consolidated results used for article traceability.
 - `pareto_operationally_feasible.csv`: Pareto front filtered by `operationally_feasible=True`.
 
 The five-node case includes exhaustive enumeration outputs for validation. IEEE 33 includes consolidated final-run outputs. The anonymized real system includes representative solutions, Pareto fronts, and run summaries only.
+
+`results/phase4_runs/ieee33/` stores the 20 independent IEEE 33-node runs used for the statistical robustness assessment. Each seed directory contains per-run raw outputs and generation/archive histories. The `phase4/` subdirectory contains postprocessed HV, IGD, spacing, empirical-reference-front, and convergence files.

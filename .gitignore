@@ -1,5 +1,6 @@
 __pycache__/
 *.py[cod]
+*.egg-info/
 .pytest_cache/
 .mypy_cache/
 .ipynb_checkpoints/
@@ -11,6 +12,7 @@ env/
 *.bak
 *.xlsx
 *.xls
+!docs/real_system/real_system_annex_C_data.xlsx
 *.docx
 *.pdf~
 data/original/

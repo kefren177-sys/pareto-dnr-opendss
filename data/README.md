@@ -1,9 +1,9 @@
 # Data
 
-This directory contains CSV input tables extracted from the simulation models.
+This directory contains public input data used by the repository.
 
-- `five_node`: synthetic validation case.
-- `ieee33`: IEEE 33-bus benchmark case.
-- `real_system_anonymized`: anonymized real-system data with sensitive source identifiers removed.
+- `five_node`: synthetic validation data.
+- `ieee33`: IEEE 33-node benchmark data, including `case33.m`.
+- `real_system_anonymized`: anonymized tabular data with sensitive identifiers removed.
 
-The real-system CSV files are sufficient for numerical traceability but are not the original operator data.
+The IEEE 33-node data are sufficient for public reruns of the optimization workflow. The real-system data are sufficient for structural and numerical traceability, but they are not the original operator data and do not include the restricted reliability workbook used in the private real-system study.

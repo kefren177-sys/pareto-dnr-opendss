@@ -1,0 +1,78 @@
+{
+  "objectives": {
+    "objective_1": "active power losses [kW]",
+    "objective_2": "SAIDI [h/customer-year]",
+    "sense": "minimization"
+  },
+  "normalization_bounds": {
+    "losses_kw": {
+      "min": 137.3403817568125,
+      "max": 142.0958063322025,
+      "span": 4.755424575390009
+    },
+    "saidi": {
+      "min": 2.99902994334375,
+      "max": 3.355444214531249,
+      "span": 0.35641427118749913
+    }
+  },
+  "normalization_bounds_source": "ideal and nadir values of the empirical reference front constructed from the union of all final run-level Pareto fronts",
+  "normalization": "z = (value - empirical_min) / (empirical_max - empirical_min); span is set to 1 if max == min.",
+  "hypervolume": {
+    "reference_point": [
+      1.05,
+      1.05
+    ],
+    "reference_point_definition": "5% margin beyond the normalized empirical upper bound for both objectives."
+  },
+  "igd": {
+    "reference_front_definition": "empirical reference front = nondominated set of the union of all final run-level Pareto fronts.",
+    "true_pareto_front_claimed": false
+  },
+  "spacing": {
+    "formula": "sample standard deviation of nearest-neighbor Manhattan distances in normalized objective space.",
+    "not_available_rule": "NOT_AVAILABLE when Pareto front has fewer than two points."
+  },
+  "convergence": {
+    "x_axis": "cumulative unique OpenDSS evaluations",
+    "aggregation": "last-observation-carried-forward on a common unique-evaluation grid; median, Q1, and Q3 are stored.",
+    "first_full_coverage_unique_evaluations": 200
+  },
+  "recovery_definition": {
+    "benchmark_configuration": "7,9,14,32,37",
+    "primary": "recovered in final run-level Pareto front",
+    "secondary": [
+      "evaluated at least once",
+      "selected as minimum-loss solution"
+    ]
+  },
+  "number_of_runs": 20,
+  "seeds": [
+    10124,
+    11235,
+    1234,
+    13579,
+    2026,
+    21235,
+    22346,
+    24680,
+    27182,
+    31415,
+    32346,
+    33457,
+    4242,
+    44568,
+    55679,
+    66780,
+    77891,
+    8675,
+    88902,
+    99013
+  ],
+  "created_at": "2026-08-16T14:50:55",
+  "software": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Mar  5 2026, 16:36:00) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "pandas": "2.2.3"
+  }
+}

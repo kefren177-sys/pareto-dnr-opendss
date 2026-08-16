@@ -34,6 +34,16 @@
 - `tables/table_optimization_input_parameters.csv`: population, generations, seed count, objectives, and evaluator.
 - `tables/table_reliability_summary.csv`: number of reliability elements, failure-rate statistics, repair-time statistics, and data-source notes.
 
+## Phase 4 Statistical Files
+
+- `generation_history.csv`: per-generation observational log with generation index, elapsed time, unique OpenDSS evaluations, cache hits, population size, feasible population size, population-level non-dominated size, archive non-dominated size, best loss, and best SAIDI.
+- `pareto_history.csv`: cumulative feasible archive front at the end of each generation; columns include case, run ID, seed, generation, cumulative unique evaluations, open switches, losses, and SAIDI.
+- `phase4_run_metrics.csv`: run-level HV, IGD, spacing, runtime, evaluation counts, representative solutions, and benchmark-recovery flags.
+- `phase4_statistical_summary.csv`: mean, standard deviation, median, Q1, Q3, IQR, minimum, and maximum for Phase 4 metrics.
+- `phase4_empirical_reference_front.csv`: non-dominated set of the union of final run-level Pareto fronts; this is an empirical reference front, not the true Pareto front.
+- `phase4_convergence.csv`: HV convergence summary versus cumulative unique OpenDSS evaluations, including median HV, Q1, Q3, and number of contributing runs.
+- `phase4_protocol.json`: objectives, normalization bounds, reference point, empirical-reference-front definition, spacing formula, recovery definition, seeds, and software metadata.
+
 ## Real-System Publication Policy
 
 For `real_system_anonymized`, `all_combined.csv` is intentionally not published in this clean repository. The public result files are `representative_solutions.csv`, `summarized_results.csv`, `pareto_feasible.csv`, `pareto_operationally_feasible.csv`, `best_by_losses.csv`, `best_by_saidi.csv`, `best_compromise.csv`, and `run_summary.csv`.

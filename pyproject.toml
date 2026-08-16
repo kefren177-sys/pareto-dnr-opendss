@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dnr"
+version = "0.1.0"
+description = "Distribution Networks Reconfiguration experiments with OpenDSS power flow."
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "pandas",
+  "networkx",
+  "matplotlib",
+  "pyyaml",
+  "typer",
+  "rich",
+  "openpyxl",
+  "opendssdirect.py",
+  "pymoo",
+]
+
+[project.scripts]
+dnr = "dnr.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
