@@ -12,7 +12,7 @@
 - `SAIFI_int_user_year`, `saifi_int_user_year`: SAIFI in interruptions/customer-year.
 - `ENS_MWh_year`, `ens_mwh_year`: expected energy not supplied in MWh/year.
 - `feasible`: radial, connected, and OpenDSS-converged solution.
-- `operationally_feasible`: historical field name retained for compatibility. In the released datasets, it identifies configurations that are feasible and voltage-feasible under the modeled constraints, with no failed load-supply check and no reported thermal violation. It does not certify ampacity compliance, protection coordination, source-capacity sufficiency, or physical switching-sequence feasibility.
+- `operationally_feasible`: historical field name retained for compatibility. In the released datasets, it identifies configurations that are feasible and voltage-feasible under the modeled constraints, with no failed load-supply check. Thermal feasibility was not evaluated because traceable branch-level thermal ratings were unavailable. This field does not certify ampacity compliance, protection coordination, source-capacity sufficiency, or physical switching-sequence feasibility.
 - `infeasibility_reasons`: semicolon-separated diagnostic flags.
 
 ## Input Data Columns

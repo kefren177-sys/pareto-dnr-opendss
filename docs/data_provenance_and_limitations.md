@@ -63,7 +63,7 @@ The public repository does not provide traceable branch-level thermal ratings or
 - source-capacity checks beyond the OpenDSS power-flow model are not claimed;
 - full field-operability beyond modeled topology and voltage constraints is not claimed.
 
-The historical result field `operationally_feasible` and files named `pareto_operationally_feasible.csv` are retained for compatibility with the analysis pipeline. For the released real-system data, they should be interpreted as voltage-feasible under the modeled constraints, with no failed topology/load-supply checks and no available thermal-rating violation. They should not be interpreted as proof of complete operational readiness.
+The historical result field `operationally_feasible` and files named `pareto_operationally_feasible.csv` are retained for compatibility with the analysis pipeline. For the released real-system data, they should be interpreted as voltage-feasible under the modeled constraints, with no failed topology/load-supply checks. Thermal feasibility was not evaluated because traceable branch-level thermal ratings were unavailable. These fields and files should not be interpreted as proof of complete operational readiness.
 
 ## Reproducibility Boundary
 
